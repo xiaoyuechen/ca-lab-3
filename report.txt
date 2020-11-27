@@ -15,6 +15,13 @@ and we need to save them till the MEM stage. Therefore, they are MEM signals.
 We do not need to use MemtoReg or RegWrite signals until the WB stage, and we
 need to save them till the WB stage. Therefore, they are WB signals.
 
+Test Code 1:
+Q3:
+The program loads the word in memory address 0 to $t1. The next instruction
+save what is in $t1 to memory address 0.
+Q4:
+The code produce the expected result.
+
 Test Code 2:
 Q3: 
 The program first loads the word in memory address 0 + 0 to the register $t1.
@@ -30,4 +37,3 @@ Q6:
 To make the code behave the way the programmer intent we need to add "stalls" (NOPs).
 This will give the loaded data time to be written to the RF.
 The RF is singlepumped so we need four cycles (four NOPs).
-
