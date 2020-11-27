@@ -14,3 +14,20 @@ and we need to save them till the MEM stage. Therefore, they are MEM signals.
 - WB:
 We do not need to use MemtoReg or RegWrite signals until the WB stage, and we
 need to save them till the WB stage. Therefore, they are WB signals.
+
+Test Code 2:
+Q3: 
+The program first loads the word in memory address 0 + 0 to the register $t1.
+The next instruction then writes the content of register $t1 to memory address 12 + 0 = 12 
+(which is also the fourth word in the memory). 
+
+Q4/5:
+It does "work" on the pipelined processor, but it does not produce the expected result.
+Since the pipelined processor takes more than one cycle to actually write it's result to the RF.
+This is a Data hazard, we have the data in the Execution stage, but not in the register where we need it.
+
+Q6:
+To make the code behave the way the programmer intent we need to add "stalls" (NOPs).
+This will give the loaded data time to be written to the RF.
+The RF is singlepumped so we need four cycles (four NOPs).
+
