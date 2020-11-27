@@ -1,0 +1,5 @@
+Q1: We save bits 20-16 and 15-11 of the instruction because we do not know 
+which of these bits we would use to decide the writeback register. We would 
+have to wait till the EX stage when the instruction decode is completed to 
+figure this out. It is a waste of space to save the whole instruction. We could
+achieved the same effects by saving the control signals.
