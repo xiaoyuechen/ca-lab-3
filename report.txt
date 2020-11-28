@@ -37,3 +37,28 @@ Q6:
 To make the code behave the way the programmer intent we need to add "stalls" (NOPs).
 This will give the loaded data time to be written to the RF.
 The RF is singlepumped so we need four cycles (four NOPs).
+
+Test Code 3:
+Q3:
+The program first loads the word in memory address 0 to register $t1.
+Then it loads the word in memory address 4 (2nd word in memory) to register $t2.
+Then it adds the words in $t1 and $t2 and save the result in $t3.
+Then it adds the words in $t1 and $t3 and save the result in $t3.
+In the end it saves the word in $t3 to memory address 12 (4th word in memory).
+
+Q4:
+It does not work.
+
+Q5:
+The data from memory address 0 and 4 has not been written back to the register
+file yet at the point when the next add instruction is reading the register
+file. 
+The second add instruction tries to use the result from the first add
+instruction, but the result has not been written back to the register file.
+The sw instruction tries to use the result from the second add instruction, but
+the result has not been written back to the register file.
+
+Q6:
+We insert 3 nops after the second lw,
+          3 nops after the first add,
+          3 nops after the second add.
