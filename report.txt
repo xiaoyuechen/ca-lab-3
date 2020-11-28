@@ -62,3 +62,31 @@ Q6:
 We insert 3 nops after the second lw,
           3 nops after the first add,
           3 nops after the second add.
+
+Q7:
+No, we have not eliminated all the need for stalls.
+For instance, if we have such instructions:
+lw $t1, 0($zero)
+add $t1, $t1, $t2
+We would still have to stall the add instruction or insert a nop between add 
+and sw. This situation could not be fixed by adding forwarding because we could
+not forward the mem read result in the mem stage. It takes to long and we would
+have to forward in in the wb stage.
+
+Other unavoidable stalls include branch instructions. We do not know if we should
+take the branch immediately. Therefore, we would have to stall for 3 cycles. This
+could be improved by using branch prediction methods. We would still need to
+recover the states if our prediction is wrong, but we do no need to stall.
+
+We could also use doubly-pumped registers to improve the pipeline. Consider the
+following instructions:
+lw $t1, 0($zero)
+nop
+nop
+add $t2, $t1, $t2
+These instructions would work if we have the current forwarding unit with
+doubly pumped registers, but would fail to work without the registers given.
+This is because the add instruction move to ex stage at the same time as the
+word at memory address 0 get written to the register file. Read date register
+in the id/ex pipeline registers would not have the correct value from memory 
+address 0.
